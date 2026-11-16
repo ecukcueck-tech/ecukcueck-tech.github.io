@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КсюшеныДесерты — Кондитерская</title>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f8c8d4'/%3E%3Cpath d='M25 62h50v10a6 6 0 0 1-6 6H31a6 6 0 0 1-6-6z' fill='%235b3a29'/%3E%3Cpath d='M27 48h46v12H27z' fill='%23e8a5b8'/%3E%3Cpath d='M31 34h38v12H31z' fill='%23fdf6f0'/%3E%3Ccircle cx='50' cy='28' r='7' fill='%23d63031'/%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Poppins',sans-serif;
+  background:#fdf6f0;
+  color:#3a2a22;
+  overflow-x:hidden;
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.active { opacity:1; transform:translateY(0); }
+
+nav {
+  position:fixed; top:0; width:100%;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 40px; z-index:100;
+  transition:background .3s, padding .3s;
+}
+nav.scrolled {
+  background:rgba(253,246,240,.95);
+  backdrop-filter:blur(8px);
+  padding:12px 40px;
+  box-shadow:0 2px 15px rgba(91,58,41,.08);
+}
+.logo {
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem; color:#5b3a29;
+  display:flex; align-items:center; gap:8px;
+}
+.logo span { color:#e8a5b8; font-style:italic; }
+.logo-icon { width:30px; height:30px; }
+nav ul { display:flex; gap:28px; list-style:none; }
+nav a { text-decoration:none; color:#3a2a22; font-size:.9rem; transition:color .3s; }
+nav a:hover { color:#e8a5b8; }
+
+.hero {
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:0 20px;
+  background:linear-gradient(135deg,#fdf6f0,#fce4ec,#f8c8d4);
+  position:relative; overflow:hidden;
+}
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,6vw,4rem);
+  color:#5b3a29; line-height:1.2; margin-bottom:20px;
+}
+.hero h1 em { color:#e8a5b8; font-style:italic; }
+.hero p {
+  max-width:500px; color:#7a6558;
+  line-height:1.7; margin-bottom:30px;
+}
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:14px 38px;
+  background:#5b3a29; color:#fff;
+  text-decoration:none; border-radius:50px;
+  transition:background .3s, transform .3s;
+  box-shadow:0 8px 20px rgba(91,58,41,.25);
+  border:none; cursor:pointer; font-family:'Poppins',sans-serif;
+  font-size:.95rem; font-weight:400;
+}
+.btn:hover { background:#e8a5b8; transform:translateY(-3px); }
+.btn svg { width:20px; height:20px; fill:#fff; }
+
+.order {
+  display:flex; flex-direction:column;
+  align-items:center; gap:15px; margin-top:30px;
+}
+.order-links { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.btn-vk {
+  background:#0077FF;
+  box-shadow:0 8px 20px rgba(0,119,255,.3);
+  padding:14px 30px;
+}
+.btn-vk:hover { background:#0060cc; }
+.btn-max {
+  background:#6C5CE7;
+  box-shadow:0 8px 20px rgba(108,92,231,.3);
+  padding:14px 30px;
+}
+.btn-max:hover { background:#5a4bd1; }
+.order-note { font-size:.85rem; color:#7a6558; }
+
+.decor {
+  position:absolute; font-size:2.5rem;
+  opacity:.35; animation:float 6s ease-in-out infinite;
+}
+.d1 { top:20%; left:10%; }
+.d2 { top:70%; left:15%; animation-delay:1s; font-size:3rem; }
+.d3 { top:25%; right:12%; animation-delay:2s; }
+.d4 { top:65%; right:18%; animation-delay:.5s; }
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(0); }
+  50% { transform:translateY(-25px) rotate(8deg); }
+}
+
+section { padding:80px 30px; }
+.title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  color:#5b3a29; text-align:center; margin-bottom:40px;
+}
+.title::after {
+  content:''; display:block;
+  width:60px; height:3px; background:#e8a5b8;
+  margin:12px auto 0; border-radius:2px;
+}
+
+.menu { background:#fdf6f0; }
+.grid {
+  max-width:1000px; margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+.card {
+  background:#fff; border-radius:18px; overflow:hidden;
+  box-shadow:0 8px 25px rgba(91,58,41,.08);
+  transition:transform .4s, box-shadow .4s;
+}
+.card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 20px 40px rgba(91,58,41,.15);
+}
+
+/* Фото блюда */
+.card-img {
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+  background:linear-gradient(135deg,#fce4ec,#f8c8d4);
+  transition:transform .5s;
+}
+.card:hover .card-img { transform:scale(1.08); }
+
+.card h3 {
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem; color:#5b3a29;
+  margin:16px 0 6px; text-align:center;
+}
+.card p {
+  font-size:.82rem; color:#9a8578;
+  text-align:center; padding:0 15px 16px;
+}
+
+.contact {
+  background:linear-gradient(135deg,#fce4ec,#f8c8d4);
+  text-align:center;
+}
+.contact p {
+  color:#5b3a29; font-size:1.05rem;
+  line-height:1.8; margin-bottom:30px;
+}
+.phone {
+  display:inline-block;
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem; color:#5b3a29;
+  text-decoration:none; margin-bottom:25px;
+  transition:color .3s;
+}
+.phone:hover { color:#e8a5b8; }
+
+footer {
+  background:#5b3a29; color:#d8c7bd;
+  text-align:center; padding:20px; font-size:.8rem;
+}
+
+@media(max-width:768px) {
+  nav { padding:14px 20px; }
+  nav ul { display:none; }
+  section { padding:60px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="22" fill="#f8c8d4"/>
+      <path d="M25 62h50v10a6 6 0 0 1-6 6H31a6 6 0 0 1-6-6z" fill="#5b3a29"/>
+      <path d="M27 48h46v12H27z" fill="#e8a5b8"/>
+      <path d="M31 34h38v12H31z" fill="#fdf6f0"/>
+      <circle cx="50" cy="28" r="7" fill="#d63031"/>
+    </svg>
+    Ксюшены<span>Десерты</span>
+  </div>
+  <ul>
+    <li><a href="#menu">Меню</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <span class="decor d1">🍰</span>
+  <span class="decor d2">🧁</span>
+  <span class="decor d3">🍩</span>
+  <span class="decor d4">🍪</span>
+  <h1 class="reveal">Искусство <em>сладкой</em> жизни</h1>
+  <p class="reveal">Десерты ручной работы из натуральных ингредиентов. Каждый кусочек — маленькое произведение искусства.</p>
+
+  <div class="order reveal">
+    <a href="#menu" class="btn">Смотреть меню</a>
+    <div class="order-links">
+      <a href="https://vk.com/id821262468" target="_blank" rel="noopener" class="btn btn-vk">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.576-1.496c.585-.188 1.337 1.258 2.133 1.815 1.006.704 1.77.55 1.77.55l3.556-.05s1.86-.117.977-1.604c-.072-.121-.513-1.1-2.644-3.113-2.228-2.103-1.93-1.763.754-5.402 1.633-2.215 2.285-3.567 2.081-4.146-.194-.551-1.394-.406-1.394-.406l-4.006.025s-.297-.04-.517.092c-.215.13-.353.432-.353.432s-.634 1.724-1.48 3.19c-1.785 3.097-2.5 3.26-2.79 3.068-.678-.447-.508-1.794-.508-2.752 0-2.994.444-4.242-.866-4.565-.435-.108-.755-.18-1.866-.191-1.426-.016-2.633.004-3.316.346-.455.228-.806.735-.592.764.264.036.862.165 1.18.606.41.57.396 1.85.396 1.85s.235 3.522-.548 3.958c-.537.3-1.275-.312-2.858-3.115-.81-1.43-1.422-3.011-1.422-3.011s-.118-.295-.328-.453c-.256-.192-.614-.253-.614-.253l-3.807.025s-.571.016-.781.27c-.187.226-.015.693-.015.693s2.98 7.12 6.355 10.708c3.094 3.29 6.607 3.074 6.607 3.074h1.59z"/>
+        </svg>
+        Заказать в ВК
+      </a>
+      <a href="https://max.ru/u/f9LHodD0cOI1gdlT0nUqYMXZU1DQrek1--qFpe-W2xckXripcXp5t2EWx2E" target="_blank" rel="noopener" class="btn btn-max">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 5.94 2 10.8c0 2.76 1.51 5.22 3.87 6.86L5 22l4.66-2.33c.76.19 1.55.29 2.34.29 5.52 0 10-3.94 10-8.8S17.52 2 12 2zm-3.5 9.5h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2zm0-3.5h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2z"/>
+        </svg>
+        Заказать в MAX
+      </a>
+    </div>
+    <span class="order-note">Заказы принимаем в ВК и MAX</span>
+  </div>
+</header>
+
+<section id="menu" class="menu">
+  <h2 class="title">Наши десерты</h2>
+  <div class="grid">
+
+    
+
+    <div class="card">
+      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
+      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN27J6xMCUcVJK4DkS-dglVejz4YETIJV0byt61qShcJG7Ecz1k_wzeW2wXmZIE_sCEeHVWG2Xk5Qj1UbAwXyJ-03_g&expires=1794930984665" alt="Шоколадный фондан" class="card-img"
+           onerror="this.style.opacity=0">
+      <h3>Торты</h3>
+      <p>
+    </div>
+
+    <div class="card">
+      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_3.jpg на путь к фото блюда -->
+      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2Nzu5Dl3oa2k6rdm-JXcjh9YVgSZA6kPzNT5F-XSXmdNlvFxmFehPUvJ2TXCluetgMotgN7Pxg3URzYF3kHTzRUGo&expires=1794939932671" alt="Тарт с малиной" class="card-img"
+           onerror="this.style.opacity=0">
+      <h3>Зефирные наборы</h3>
+      <p></p>
+    </div>
+
+    <div class="card">
+      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_4.jpg на путь к фото блюда -->
+      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN1J1s6oa4cEi9rv_OXCaIWExWRSBHxHKPhdVyyCS2U0diqG4LYj3_cAaiDjtIQ_TbT5uLCza_hjEbKW1mcIY_qKpPE&expires=1794926673539" alt="Макаронс" class="card-img"
+           onerror="this.style.opacity=0">
+      <h3>Наборы конфет ручной работы</h3>
+      <p></p>
+    </div>
+    
+     <div class="card">
+      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
+      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN3rtpAWPrT0Y1t8g8dpCD_umoSuMyOIWzLFbbiVLYDO3ok-VKxdVHGy6O94UmngmVingq7ruNV4KJiJWMSxHY7maY0&expires=1794925037934" alt="Шоколадный фондан" class="card-img"
+           onerror="this.style.opacity=0">
+      <h3>Пряничные наборы</h3>
+      <p>
+    </div>
+    
+    <div class="card">
+      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
+      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2fU5F-276eydrH4cFzhr1pc7ZOTe2t-L92tM2zz1-C1ZnDrHBrCScQRaVysmTL-y5VPd03FGy6H_N3Zl1g3DaF3AU&expires=1794925410799" alt="Шоколадный фондан" class="card-img"
+           onerror="this.style.opacity=0">
+      <h3>Букеты из зефирных цветов</h3>
+      <p>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2 class="title">Свяжитесь с нами</h2>
+  <p>Ежедневно с 9:00 до 21:00</p>
+
+  <a href="tel:+79647994650" class="phone">+7 964 799-46-50</a>
+  <br>
+
+  <a href="tel:+79647994650" class="btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2z"/>
+    </svg>
+    Позвонить
+  </a>
+</section>
+
+<footer>© 2026 КсюшеныДесерты. Сделано с любовью .</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: .15 });
+
+document.querySelectorAll('.reveal, .card, .title').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelector(a.getAttribute('href'))
+      .scrollIntoView({ behavior:'smooth' });
+  });
+});
+</script>
+</body>
+</html>
