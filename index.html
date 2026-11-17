@@ -2,334 +2,609 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ксюшины Десерты — Кондитерская</title>
-<meta name="yandex-verification" content="2dfc37f9f592ca5d" />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f8c8d4'/%3E%3Cpath d='M25 62h50v10a6 6 0 0 1-6 6H31a6 6 0 0 1-6-6z' fill='%235b3a29'/%3E%3Cpath d='M27 48h46v12H27z' fill='%23e8a5b8'/%3E%3Cpath d='M31 34h38v12H31z' fill='%23fdf6f0'/%3E%3Ccircle cx='50' cy='28' r='7' fill='%23d63031'/%3E%3C/svg%3E">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#5b3a29">
+<title>Ксюшины Десерты</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='40' fill='%23f8c8d4'/%3E%3Ccircle cx='100' cy='95' r='55' fill='%232b2b2b'/%3E%3Ccircle cx='100' cy='95' r='38' fill='%23fff'/%3E%3Ccircle cx='100' cy='95' r='20' fill='%232b2b2b'/%3E%3C/svg%3E">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Poppins',sans-serif;background:#fdf6f0;color:#3a2a22;overflow-x:hidden;padding-bottom:70px}
 
-body {
-  font-family:'Poppins',sans-serif;
-  background:#fdf6f0;
-  color:#3a2a22;
-  overflow-x:hidden;
-}
+/* ===== ОНБОРДИНГ ===== */
+#onboarding{position:fixed;inset:0;background:linear-gradient(160deg,#fce4ec,#f8c8d4);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:opacity .5s}
+#onboarding.hide{opacity:0;pointer-events:none}
+#onboarding .ob-icon{font-size:5rem;margin-bottom:20px;animation:float 3s ease-in-out infinite}
+#onboarding h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#5b3a29;margin-bottom:12px}
+#onboarding p{color:#7a6558;font-size:.95rem;line-height:1.6;max-width:320px;margin-bottom:30px}
+#onboarding .dots{display:flex;gap:8px;margin-bottom:30px}
+#onboarding .dot{width:10px;height:10px;border-radius:50%;background:rgba(91,58,41,.25);transition:background .3s}
+#onboarding .dot.active{background:#5b3a29}
 
-.reveal {
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity .7s ease, transform .7s ease;
-}
-.reveal.active { opacity:1; transform:translateY(0); }
+/* ===== НИЖНЯЯ НАВИГАЦИЯ (как в приложении) ===== */
+.tabbar{position:fixed;bottom:0;left:0;right:0;height:64px;background:#fff;display:flex;justify-content:space-around;align-items:center;box-shadow:0 -4px 20px rgba(91,58,41,.1);z-index:500;padding-bottom:env(safe-area-inset-bottom)}
+.tabbar .tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.65rem;color:#9a8578;cursor:pointer;transition:color .3s;position:relative;padding:6px 12px}
+.tabbar .tab svg{width:24px;height:24px;fill:currentColor}
+.tabbar .tab.active{color:#5b3a29}
+.tabbar .tab .badge{position:absolute;top:2px;right:4px;background:#e8a5b8;color:#fff;font-size:.6rem;min-width:16px;height:16px;border-radius:50px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:600}
 
-nav {
-  position:fixed; top:0; width:100%;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:20px 40px; z-index:100;
-  transition:background .3s, padding .3s;
-}
-nav.scrolled {
-  background:rgba(253,246,240,.95);
-  backdrop-filter:blur(8px);
-  padding:12px 40px;
-  box-shadow:0 2px 15px rgba(91,58,41,.08);
-}
-.logo {
-  font-family:'Playfair Display',serif;
-  font-size:1.4rem; color:#5b3a29;
-  display:flex; align-items:center; gap:8px;
-}
-.logo span { color:#e8a5b8; font-style:italic; }
-.logo-icon { width:30px; height:30px; }
-nav ul { display:flex; gap:28px; list-style:none; }
-nav a { text-decoration:none; color:#3a2a22; font-size:.9rem; transition:color .3s; }
-nav a:hover { color:#e8a5b8; }
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;z-index:100;transition:background .3s,padding .3s}
+nav.scrolled{background:rgba(253,246,240,.95);backdrop-filter:blur(8px);padding:10px 24px;box-shadow:0 2px 15px rgba(91,58,41,.08)}
+.logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:#5b3a29;display:flex;align-items:center;gap:8px;cursor:pointer}
+.logo em{color:#e8a5b8;font-style:italic}
+.logo-icon{width:32px;height:32px}
+nav ul{display:none}
 
-.hero {
-  min-height:100vh;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  text-align:center; padding:0 20px;
-  background:linear-gradient(135deg,#fdf6f0,#fce4ec,#f8c8d4);
-  position:relative; overflow:hidden;
-}
-.hero h1 {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,6vw,4rem);
-  color:#5b3a29; line-height:1.2; margin-bottom:20px;
-}
-.hero h1 em { color:#e8a5b8; font-style:italic; }
-.hero p {
-  max-width:500px; color:#7a6558;
-  line-height:1.7; margin-bottom:30px;
-}
+.view{display:none}
+.view.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.btn {
-  display:inline-flex; align-items:center; justify-content:center; gap:8px;
-  padding:14px 38px;
-  background:#5b3a29; color:#fff;
-  text-decoration:none; border-radius:50px;
-  transition:background .3s, transform .3s;
-  box-shadow:0 8px 20px rgba(91,58,41,.25);
-  border:none; cursor:pointer; font-family:'Poppins',sans-serif;
-  font-size:.95rem; font-weight:400;
-}
-.btn:hover { background:#e8a5b8; transform:translateY(-3px); }
-.btn svg { width:20px; height:20px; fill:#fff; }
+.hero{min-height:85vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 20px 20px;background:linear-gradient(135deg,#fdf6f0,#fce4ec,#f8c8d4);position:relative;overflow:hidden}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.4rem);color:#5b3a29;line-height:1.2;margin-bottom:16px}
+.hero h1 em{color:#e8a5b8;font-style:italic}
+.hero p{max-width:500px;color:#7a6558;line-height:1.7;margin-bottom:24px;font-size:.9rem}
 
-.order {
-  display:flex; flex-direction:column;
-  align-items:center; gap:15px; margin-top:30px;
-}
-.order-links { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-.btn-vk {
-  background:#0077FF;
-  box-shadow:0 8px 20px rgba(0,119,255,.3);
-  padding:14px 30px;
-}
-.btn-vk:hover { background:#0060cc; }
-.btn-max {
-  background:#6C5CE7;
-  box-shadow:0 8px 20px rgba(108,92,231,.3);
-  padding:14px 30px;
-}
-.btn-max:hover { background:#5a4bd1; }
-.order-note { font-size:.85rem; color:#7a6558; }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 32px;background:#5b3a29;color:#fff;text-decoration:none;border-radius:50px;transition:background .3s,transform .3s;box-shadow:0 8px 20px rgba(91,58,41,.25);border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:.9rem}
+.btn:hover{background:#e8a5b8;transform:translateY(-3px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-block{width:100%}
+.btn-vk{background:#0077FF;padding:12px 24px;font-size:.85rem}
+.btn-vk:hover{background:#0060cc}
+.btn-wa{background:#25D366;padding:12px 24px;font-size:.85rem}
+.btn-wa:hover{background:#1da851}
+.order{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px;width:100%;max-width:340px}
+.order-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:100%}
+.order-links .btn{flex:1;min-width:140px}
+.order-note{font-size:.8rem;color:#7a6558}
+.decor{position:absolute;font-size:2.2rem;opacity:.3;animation:float 6s ease-in-out infinite}
+.d1{top:18%;left:8%}.d2{top:70%;left:12%;animation-delay:1s}
+.d3{top:22%;right:10%;animation-delay:2s}.d4{top:68%;right:14%;animation-delay:.5s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(8deg)}}
 
-.decor {
-  position:absolute; font-size:2.5rem;
-  opacity:.35; animation:float 6s ease-in-out infinite;
-}
-.d1 { top:20%; left:10%; }
-.d2 { top:70%; left:15%; animation-delay:1s; font-size:3rem; }
-.d3 { top:25%; right:12%; animation-delay:2s; }
-.d4 { top:65%; right:18%; animation-delay:.5s; }
-@keyframes float {
-  0%,100% { transform:translateY(0) rotate(0); }
-  50% { transform:translateY(-25px) rotate(8deg); }
-}
+section{padding:50px 20px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.2rem);color:#5b3a29;text-align:center;margin-bottom:32px}
+.title::after{content:'';display:block;width:60px;height:3px;background:#e8a5b8;margin:10px auto 0;border-radius:2px}
+.grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 25px rgba(91,58,41,.08);transition:transform .3s;display:flex;flex-direction:column}
+.card:active{transform:scale(.98)}
+.card-img{width:100%;height:140px;object-fit:cover;display:block;background:linear-gradient(135deg,#fce4ec,#f8c8d4)}
+.card h3{font-family:'Playfair Display',serif;font-size:1rem;color:#5b3a29;margin:12px 0 4px;text-align:center;padding:0 8px}
+.card p{font-size:.75rem;color:#9a8578;text-align:center;padding:0 10px 6px}
+.card .price{font-weight:600;color:#5b3a29;font-size:.9rem;text-align:center;padding-bottom:8px}
+.card .add-to-cart{margin:0 12px 12px;width:calc(100% - 24px);padding:9px;font-size:.8rem}
 
-section { padding:80px 30px; }
-.title {
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.8rem,4vw,2.6rem);
-  color:#5b3a29; text-align:center; margin-bottom:40px;
-}
-.title::after {
-  content:''; display:block;
-  width:60px; height:3px; background:#e8a5b8;
-  margin:12px auto 0; border-radius:2px;
-}
+.contact{background:linear-gradient(135deg,#fce4ec,#f8c8d4);text-align:center}
+.contact p{color:#5b3a29;font-size:1rem;line-height:1.8;margin-bottom:24px}
+.phone{display:inline-block;font-family:'Playfair Display',serif;font-size:1.4rem;color:#5b3a29;text-decoration:none;margin-bottom:20px}
+.phone:hover{color:#e8a5b8}
 
-.menu { background:#fdf6f0; }
-.grid {
-  max-width:1000px; margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-.card {
-  background:#fff; border-radius:18px; overflow:hidden;
-  box-shadow:0 8px 25px rgba(91,58,41,.08);
-  transition:transform .4s, box-shadow .4s;
-}
-.card:hover {
-  transform:translateY(-8px);
-  box-shadow:0 20px 40px rgba(91,58,41,.15);
-}
+footer{background:#5b3a29;color:#d8c7bd;text-align:center;padding:18px;font-size:.75rem}
 
-/* Фото блюда */
-.card-img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  display:block;
-  background:linear-gradient(135deg,#fce4ec,#f8c8d4);
-  transition:transform .5s;
-}
-.card:hover .card-img { transform:scale(1.08); }
+/* ===== Корзина ===== */
+.cart-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.cart-item{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 6px 20px rgba(91,58,41,.08)}
+.cart-item .ci-name{flex:1;font-weight:600;color:#5b3a29;font-size:.85rem}
+.cart-item .ci-price{color:#7a6558;font-size:.8rem}
+.qty-controls{display:flex;align-items:center;gap:6px}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:none;background:#f8c8d4;color:#5b3a29;font-size:1rem;cursor:pointer;font-weight:700;line-height:1}
+.qty-btn:active{background:#e8a5b8}
+.ci-remove{background:none;border:none;cursor:pointer;font-size:1.1rem;color:#c0392b}
+.cart-summary{max-width:700px;margin:20px auto 0;display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 6px 20px rgba(91,58,41,.08);gap:12px}
+.cart-summary .total{font-family:'Playfair Display',serif;font-size:1.2rem;color:#5b3a29}
+.empty-cart{text-align:center;color:#9a8578;font-size:1rem;padding:40px 0}
 
-.card h3 {
-  font-family:'Playfair Display',serif;
-  font-size:1.15rem; color:#5b3a29;
-  margin:16px 0 6px; text-align:center;
-}
-.card p {
-  font-size:.82rem; color:#9a8578;
-  text-align:center; padding:0 15px 16px;
-}
+/* ===== АККАУНТ ===== */
+.auth-wrap{max-width:460px;margin:0 auto;background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 25px rgba(91,58,41,.08)}
+.auth-wrap h3{font-family:'Playfair Display',serif;color:#5b3a29;margin-bottom:16px;text-align:center;font-size:1.3rem}
+.auth-wrap label{display:block;font-size:.8rem;color:#5b3a29;margin-bottom:5px;font-weight:600}
+.auth-wrap input,.auth-wrap select,.auth-wrap textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e8c4cf;font-family:'Poppins',sans-serif;font-size:16px;margin-bottom:14px;background:#fdf6f0;color:#3a2a22}
+.auth-wrap input:focus,.auth-wrap select:focus,.auth-wrap textarea:focus{outline:none;border-color:#e8a5b8}
+.auth-wrap .switch-line{text-align:center;font-size:.8rem;color:#7a6558;margin-top:12px}
+.auth-wrap .switch-line a{color:#5b3a29;font-weight:600;cursor:pointer;text-decoration:underline}
+.error-msg{background:#fde2e2;color:#a93226;padding:10px 14px;border-radius:10px;font-size:.8rem;margin-bottom:12px;display:none}
+.error-msg.show{display:block}
 
-.contact {
-  background:linear-gradient(135deg,#fce4ec,#f8c8d4);
-  text-align:center;
-}
-.contact p {
-  color:#5b3a29; font-size:1.05rem;
-  line-height:1.8; margin-bottom:30px;
-}
-.phone {
-  display:inline-block;
-  font-family:'Playfair Display',serif;
-  font-size:1.6rem; color:#5b3a29;
-  text-decoration:none; margin-bottom:25px;
-  transition:color .3s;
-}
-.phone:hover { color:#e8a5b8; }
+.profile-box{max-width:460px;margin:0 auto 20px;background:#fff;border-radius:16px;padding:24px;box-shadow:0 8px 25px rgba(91,58,41,.08);text-align:center}
+.profile-box .avatar{width:72px;height:72px;border-radius:50%;background:#f8c8d4;color:#5b3a29;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-family:'Playfair Display',serif;margin:0 auto 12px}
+.profile-box h3{font-family:'Playfair Display',serif;color:#5b3a29;margin-bottom:4px;font-size:1.2rem}
+.profile-box p{color:#7a6558;font-size:.85rem}
+.logout-btn{background:#c0392b;margin-top:14px}
+.logout-btn:hover{background:#a93226}
 
-footer {
-  background:#5b3a29; color:#d8c7bd;
-  text-align:center; padding:20px; font-size:.8rem;
-}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%) translateY(80px);background:#5b3a29;color:#fff;padding:12px 24px;border-radius:50px;font-size:.85rem;opacity:0;transition:all .4s ease;z-index:9999;pointer-events:none;max-width:90%}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-@media(max-width:768px) {
-  nav { padding:14px 20px; }
-  nav ul { display:none; }
-  section { padding:60px 20px; }
+.page{padding-top:80px;min-height:100vh}
+
+@media(min-width:769px){
+  .tabbar{display:none}
+  body{padding-bottom:0}
+  nav ul{display:flex;gap:20px;list-style:none;align-items:center}
+  nav a{text-decoration:none;color:#3a2a22;font-size:.9rem;cursor:pointer}
+  nav a:hover{color:#e8a5b8}
+  .cart-count{display:inline-block;min-width:20px;text-align:center;background:#e8a5b8;color:#fff;border-radius:50px;font-size:.7rem;padding:1px 6px;font-weight:600}
 }
 </style>
 </head>
 <body>
 
+<!-- ОНБОРДИНГ -->
+<div id="onboarding">
+  <div class="ob-icon">🍰</div>
+  <h2>Ксюшины Десерты</h2>
+  <p>Десерты ручной работы из натуральных ингредиентов. Заказывайте прямо из приложения — быстро и удобно.</p>
+  <div class="dots">
+    <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+  </div>
+  <button class="btn" onclick="finishOnboarding()" style="padding:14px 50px">Начать</button>
+</div>
+
+<!-- ВЕРХНЕЕ МЕНЮ (для десктопа) -->
 <nav>
-  <div class="logo">
-    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100" height="100" rx="22" fill="#f8c8d4"/>
-      <path d="M25 62h50v10a6 6 0 0 1-6 6H31a6 6 0 0 1-6-6z" fill="#5b3a29"/>
-      <path d="M27 48h46v12H27z" fill="#e8a5b8"/>
-      <path d="M31 34h38v12H31z" fill="#fdf6f0"/>
-      <circle cx="50" cy="28" r="7" fill="#d63031"/>
+  <div class="logo" onclick="showView('home')">
+    <svg class="logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" rx="40" fill="#f8c8d4"/>
+      <circle cx="100" cy="95" r="55" fill="#2b2b2b"/>
+      <circle cx="100" cy="95" r="38" fill="#fff"/>
+      <circle cx="100" cy="95" r="20" fill="#2b2b2b"/>
+      <circle cx="100" cy="95" r="7" fill="#fff"/>
     </svg>
-    Ксюшины<span>Десерты</span>
+    <span>Ксюшины <em>Десерты</em></span>
   </div>
   <ul>
-    <li><a href="#menu">Меню</a></li>
-    <li><a href="#contact">Контакты</a></li>
+    <li><a onclick="showView('home');scrollToId('menu')">Меню</a></li>
+    <li><a onclick="showView('home');scrollToId('contact')">Контакты</a></li>
+    <li><a id="nav-profile-link" onclick="showView('profile')">Войти</a></li>
+    <li><a onclick="showView('cart')">🛒 Корзина <span class="cart-count">0</span></a></li>
   </ul>
 </nav>
 
-<header class="hero">
-  <span class="decor d1">🍰</span>
-  <span class="decor d2">🧁</span>
-  <span class="decor d3">🍩</span>
-  <span class="decor d4">🍪</span>
-  <h1 class="reveal">Искусство <em>сладкой</em> жизни</h1>
-  <p class="reveal">Десерты ручной работы из натуральных ингредиентов. Каждый кусочек — маленькое произведение искусства.</p>
-
-  <div class="order reveal">
-    <a href="#menu" class="btn">Смотреть меню</a>
-    <div class="order-links">
-      <a href="https://vk.com/id821262468" target="_blank" rel="noopener" class="btn btn-vk">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.576-1.496c.585-.188 1.337 1.258 2.133 1.815 1.006.704 1.77.55 1.77.55l3.556-.05s1.86-.117.977-1.604c-.072-.121-.513-1.1-2.644-3.113-2.228-2.103-1.93-1.763.754-5.402 1.633-2.215 2.285-3.567 2.081-4.146-.194-.551-1.394-.406-1.394-.406l-4.006.025s-.297-.04-.517.092c-.215.13-.353.432-.353.432s-.634 1.724-1.48 3.19c-1.785 3.097-2.5 3.26-2.79 3.068-.678-.447-.508-1.794-.508-2.752 0-2.994.444-4.242-.866-4.565-.435-.108-.755-.18-1.866-.191-1.426-.016-2.633.004-3.316.346-.455.228-.806.735-.592.764.264.036.862.165 1.18.606.41.57.396 1.85.396 1.85s.235 3.522-.548 3.958c-.537.3-1.275-.312-2.858-3.115-.81-1.43-1.422-3.011-1.422-3.011s-.118-.295-.328-.453c-.256-.192-.614-.253-.614-.253l-3.807.025s-.571.016-.781.27c-.187.226-.015.693-.015.693s2.98 7.12 6.355 10.708c3.094 3.29 6.607 3.074 6.607 3.074h1.59z"/>
-        </svg>
-        Заказать в ВК
-      </a>
-      <a href="https://wa.me/qr/Q6F2X6F66CMAB1" target="_blank" rel="noopener" class="btn btn-max">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 5.94 2 10.8c0 2.76 1.51 5.22 3.87 6.86L5 22l4.66-2.33c.76.19 1.55.29 2.34.29 5.52 0 10-3.94 10-8.8S17.52 2 12 2zm-3.5 9.5h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2zm0-3.5h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2z"/>
-        </svg>
-        Заказать в WhatsApp
-      </a>
+<!-- ГЛАВНАЯ -->
+<div class="view active" id="view-home">
+  <header class="hero">
+    <span class="decor d1">🍰</span><span class="decor d2">🧁</span>
+    <span class="decor d3">🍩</span><span class="decor d4">🍪</span>
+    <h1>Искусство <em>сладкой</em> жизни</h1>
+    <p>Десерты ручной работы из натуральных ингредиентов. Каждый кусочек — маленькое произведение искусства.</p>
+    <div class="order">
+      <a href="#menu" class="btn" onclick="event.preventDefault();scrollToId('menu')">Смотреть меню</a>
+      <div class="order-links">
+        <a href="https://vk.com/id821262468" target="_blank" rel="noopener" class="btn btn-vk">ВК</a>
+        <a href="https://wa.me/79647994650" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+      </div>
+      <span class="order-note">Заказы принимаем в ВК и WhatsApp</span>
     </div>
-    <span class="order-note">Заказы принимаем в ВК и WhatsApp</span>
+  </header>
+
+  <section id="menu">
+    <h2 class="title">Наши десерты</h2>
+    <div class="grid">
+      <div class="card" data-id="cake-1" data-name="Торты" data-price="2500">
+        <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN27J6xMCUcVJK4DkS-dglVejz4YETIJV0byt61qShcJG7Ecz1k_wzeW2wXmZIE_sCEeHVWG2Xk5Qj1UbAwXyJ-03_g&expires=1794930984665" alt="Торты" class="card-img" onerror="this.style.opacity=0">
+        <h3>Торты</h3><p>На заказ, от 1 кг</p><div class="price">от 2 500 ₽</div>
+        <button class="btn add-to-cart" data-id="cake-1" data-name="Торты" data-price="2500">В корзину</button>
+      </div>
+      <div class="card" data-id="zefir-1" data-name="Зефирные наборы" data-price="1200">
+        <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2Nzu5Dl3oa2k6rdm-JXcjh9YVgSZA6kPzNT5F-XSXmdNlvFxmFehPUvJ2TXCluetgMotgN7Pxg3URzYF3kHTzRUGo&expires=1794939932671" alt="Зефир" class="card-img" onerror="this.style.opacity=0">
+        <h3>Зефирные наборы</h3><p>Натуральный зефир</p><div class="price">от 1 200 ₽</div>
+        <button class="btn add-to-cart" data-id="zefir-1" data-name="Зефирные наборы" data-price="1200">В корзину</button>
+      </div>
+      <div class="card" data-id="candy-1" data-name="Конфеты ручной работы" data-price="1500">
+        <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN1J1s6oa4cEi9rv_OXCaIWExWRSBHxHKPhdVyyCS2U0diqG4LYj3_cAaiDjtIQ_TbT5uLCza_hjEbKW1mcIY_qKpPE&expires=1794926673539" alt="Конфеты" class="card-img" onerror="this.style.opacity=0">
+        <h3>Наборы конфет</h3><p>Ассорти из шоколада</p><div class="price">от 1 500 ₽</div>
+        <button class="btn add-to-cart" data-id="candy-1" data-name="Наборы конфет ручной работы" data-price="1500">В корзину</button>
+      </div>
+      <div class="card" data-id="pryanik-1" data-name="Пряничные наборы" data-price="900">
+        <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN3rtpAWPrT0Y1t8g8dpCD_umoSuMyOIWzLFbbiVLYDO3ok-VKxdVHGy6O94UmngmVingq7ruNV4KJiJWMSxHY7maY0&expires=1794925037934" alt="Пряники" class="card-img" onerror="this.style.opacity=0">
+        <h3>Пряничные наборы</h3><p>Расписные пряники</p><div class="price">от 900 ₽</div>
+        <button class="btn add-to-cart" data-id="pryanik-1" data-name="Пряничные наборы" data-price="900">В корзину</button>
+      </div>
+      <div class="card" data-id="bouquet-1" data-name="Букеты из зефирных цветов" data-price="2200">
+        <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2fU5F-276eydrH4cFzhr1pc7ZOTe2t-L92tM2zz1-C1ZnDrHBrCScQRaVysmTL-y5VPd03FGy6H_N3Zl1g3DaF3AU&expires=1794925410799" alt="Букеты" class="card-img" onerror="this.style.opacity=0">
+        <h3>Букеты из зефира</h3><p>Съедобный букет</p><div class="price">от 2 200 ₽</div>
+        <button class="btn add-to-cart" data-id="bouquet-1" data-name="Букеты из зефирных цветов" data-price="2200">В корзину</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="title">Свяжитесь с нами</h2>
+    <p>Ежедневно с 9:00 до 21:00</p>
+    <a href="tel:+79647994650" class="phone">+7 964 799-46-50</a><br>
+    <a href="tel:+79647994650" class="btn">Позвонить</a>
+  </section>    <h2 class="title">при возникновении ошибок писать АДМИНУ в МАХ- 
+    <a href="https://max.ru/u/f9LHodD0cOIf3Nz56u3fFQHzdF5iXjD4t2KB-ROtLTzV3Bf0TQtgazpZqp8"target="_blank" rel="noopener" class="btn btn-vk">МАХ</a>
+</div>
+
+<!-- КОРЗИНА -->
+<div class="view page" id="view-cart">
+  <h2 class="title">Корзина</h2>
+  <div class="cart-list" id="cart-list"></div>
+  <div class="cart-summary" id="cart-summary" style="display:none">
+    <span class="total">Итого: <span id="total-sum">0</span> ₽</span>
+    <button class="btn" id="checkout-btn" style="padding:12px 20px;font-size:.85rem">Заказать</button>
   </div>
-</header>
-
-<section id="menu" class="menu">
-  <h2 class="title">Наши десерты</h2>
-  <div class="grid">
-
-    
-
-    <div class="card">
-      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
-      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN27J6xMCUcVJK4DkS-dglVejz4YETIJV0byt61qShcJG7Ecz1k_wzeW2wXmZIE_sCEeHVWG2Xk5Qj1UbAwXyJ-03_g&expires=1794930984665" alt="Шоколадный фондан" class="card-img"
-           onerror="this.style.opacity=0">
-      <h3>Торты</h3>
-      <p>
-    </div>
-
-    <div class="card">
-      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_3.jpg на путь к фото блюда -->
-      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2Nzu5Dl3oa2k6rdm-JXcjh9YVgSZA6kPzNT5F-XSXmdNlvFxmFehPUvJ2TXCluetgMotgN7Pxg3URzYF3kHTzRUGo&expires=1794939932671" alt="Тарт с малиной" class="card-img"
-           onerror="this.style.opacity=0">
-      <h3>Зефирные наборы</h3>
-      <p></p>
-    </div>
-
-    <div class="card">
-      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_4.jpg на путь к фото блюда -->
-      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN1J1s6oa4cEi9rv_OXCaIWExWRSBHxHKPhdVyyCS2U0diqG4LYj3_cAaiDjtIQ_TbT5uLCza_hjEbKW1mcIY_qKpPE&expires=1794926673539" alt="Макаронс" class="card-img"
-           onerror="this.style.opacity=0">
-      <h3>Наборы конфет ручной работы</h3>
-      <p></p>
-    </div>
-    
-     <div class="card">
-      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
-      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN3rtpAWPrT0Y1t8g8dpCD_umoSuMyOIWzLFbbiVLYDO3ok-VKxdVHGy6O94UmngmVingq7ruNV4KJiJWMSxHY7maY0&expires=1794925037934" alt="Шоколадный фондан" class="card-img"
-           onerror="this.style.opacity=0">
-      <h3>Пряничные наборы</h3>
-      <p>
-    </div>
-    
-    <div class="card">
-      <!-- ЗАМЕНИТЕ ВАШЕ_ФОТО_2.jpg на путь к фото блюда -->
-      <img src="https://i.oneme.ru/i?r=B09HQN0Qr3SEKX3_pN2fU5F-276eydrH4cFzhr1pc7ZOTe2t-L92tM2zz1-C1ZnDrHBrCScQRaVysmTL-y5VPd03FGy6H_N3Zl1g3DaF3AU&expires=1794925410799" alt="Шоколадный фондан" class="card-img"
-           onerror="this.style.opacity=0">
-      <h3>Букеты из зефирных цветов</h3>
-      <p>
-    </div>
-
+  <div style="text-align:center;margin-top:20px">
+    <button class="btn" onclick="clearCart()" id="clear-cart-btn" style="background:#c0392b;padding:10px 20px;font-size:.8rem">Очистить корзину</button>
   </div>
-</section>
+</div>
 
-<section id="contact" class="contact">
-  <h2 class="title">Свяжитесь с нами</h2>
-  <p>Ежедневно с 9:00 до 21:00</p>
+<!-- ПРОФИЛЬ / АККАУНТ -->
+<div class="view page" id="view-profile">
+  <h2 class="title">Личный кабинет(проходит тест)(Не влияет на ОФОРМЛЕНИЕ ЗАКАЗА)</h2>
 
-  <a href="tel:+79647994650" class="phone">+7 964 799-46-50</a>
-  <br>
+  <!-- Вход -->
+  <div class="auth-wrap" id="auth-login">
+    <h3>Вход в аккаунт</h3>
+    <div class="error-msg" id="login-error"></div>
 
-  <a href="tel:+79647994650" class="btn">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2z"/>
-    </svg>
-    Позвонить
-  </a>
-</section>
+    <!-- DECOY-ПОЛЯ для Chrome (RuStore fix) -->
+    <div style="display:none;visibility:hidden;height:0;width:0;overflow:hidden" aria-hidden="true">
+      <input type="text" name="fakeusernameremembered" autocomplete="username" tabindex="-1" readonly>
+      <input type="password" name="fakepasswordremembered" autocomplete="new-password" tabindex="-1" readonly>
+    </div>
 
-<footer>© 2026 Ксюшины Десерты. Сделано с любовью </footer>
+    <label>Email</label>
+    <input type="email" id="login-email" placeholder="you@example.com" autocomplete="off" data-form-type="other">
+    <label>Пароль</label>
+    <input type="password" id="login-pass" placeholder="Ваш пароль" autocomplete="off" data-form-type="other">
+    <button class="btn btn-block" onclick="doLogin()">Войти</button>
+    <p class="switch-line">Нет аккаунта? <a onclick="showAuthTab('register')">Зарегистрироваться</a></p>
+    <p class="switch-line"><a onclick="showAuthTab('recover')">Забыли пароль?</a></p>
+  </div>
+
+  <!-- Регистрация -->
+  <div class="auth-wrap" id="auth-register" style="display:none">
+    <h3>Регистрация</h3>
+    <div class="error-msg" id="reg-error"></div>
+
+    <!-- DECOY-ПОЛЯ -->
+    <div style="display:none;visibility:hidden;height:0;width:0;overflow:hidden" aria-hidden="true">
+      <input type="text" name="fakeusernameremembered" autocomplete="username" tabindex="-1" readonly>
+      <input type="password" name="fakepasswordremembered" autocomplete="new-password" tabindex="-1" readonly>
+    </div>
+
+    <label>Имя</label>
+    <input type="text" id="reg-name" placeholder="Как к вам обращаться" autocomplete="off">
+    <label>Email</label>
+    <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="off" data-form-type="other">
+    <label>Пароль (мин. 6 символов)</label>
+    <input type="password" id="reg-pass" placeholder="Придумайте пароль" autocomplete="off" data-form-type="other">
+    <label>Повторите пароль</label>
+    <input type="password" id="reg-pass2" placeholder="Ещё раз" autocomplete="off" data-form-type="other">
+    <label>Секретный вопрос</label>
+    <select id="reg-question">
+      <option value="pet">Кличка первого питомца?</option>
+      <option value="city">Город рождения?</option>
+      <option value="school">Номер школы?</option>
+      <option value="dish">Любимое блюдо?</option>
+    </select>
+    <label>Ответ</label>
+    <input type="text" id="reg-answer" placeholder="Ответ" autocomplete="off">
+    <button class="btn btn-block" onclick="doRegister()">Создать аккаунт</button>
+    <p class="switch-line">Уже есть аккаунт? <a onclick="showAuthTab('login')">Войти</a></p>
+  </div>
+
+  <!-- Восстановление -->
+  <div class="auth-wrap" id="auth-recover" style="display:none">
+    <h3>Восстановление пароля</h3>
+    <div class="error-msg" id="rec-error"></div>
+    <label>Email</label>
+    <input type="email" id="rec-email" placeholder="you@example.com" autocomplete="off">
+    <button class="btn btn-block" onclick="doRecoverStep1()">Далее</button>
+    <div id="rec-step2" style="display:none;margin-top:16px">
+      <p style="font-size:.85rem;color:#7a6558;margin-bottom:10px" id="rec-question-text"></p>
+      <label>Ответ</label>
+      <input type="text" id="rec-answer" placeholder="Ответ" autocomplete="off">
+      <label>Новый пароль</label>
+      <input type="password" id="rec-newpass" placeholder="Минимум 6 символов" autocomplete="off">
+      <button class="btn btn-block" onclick="doRecoverStep2()">Сменить пароль</button>
+    </div>
+    <p class="switch-line"><a onclick="showAuthTab('login')">← Назад</a></p>
+  </div>
+
+  <!-- Профиль вошедшего -->
+  <div id="auth-profile" style="display:none">
+    <div class="profile-box">
+      <div class="avatar" id="prof-avatar">?</div>
+      <h3 id="prof-name"></h3>
+      <p id="prof-email"></p>
+      <button class="btn logout-btn" onclick="doLogout()">Выйти</button>
+    </div>
+    <form class="auth-wrap" id="profile-settings-form" onsubmit="saveProfileSettings(event)">
+      <h3>Настройки профиля</h3>
+      <label>Имя</label>
+      <input type="text" id="prof-edit-name">
+      <label>Телефон</label>
+      <input type="tel" id="prof-edit-phone" placeholder="+7 ___ ___-__-__">
+      <label>Адрес доставки</label>
+      <textarea id="prof-edit-address" rows="3" placeholder="Город, улица, дом"></textarea>
+      <label>Новый пароль (если хотите сменить)</label>
+      <input type="password" id="prof-edit-pass" placeholder="Оставьте пустым" autocomplete="new-password">
+      <button class="btn btn-block" type="submit">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<footer>© 2026 Ксюшины Десерты. Сделано с любовью 🍓</footer>
+
+<!-- НИЖНЯЯ НАВИГАЦИЯ -->
+<div class="tabbar">
+  <div class="tab active" data-tab="home" onclick="showView('home')">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>Главная</span>
+  </div>
+  <div class="tab" data-tab="cart" onclick="showView('cart')">
+    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    <span>Корзина</span>
+    <span class="badge cart-count">0</span>
+  </div>
+  <div class="tab" data-tab="profile" onclick="showView('profile')">
+    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    <span>Профиль</span>
+  </div>
+</div>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('active');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: .15 });
+/* =========================================================
+   0. ОНБОРДИНГ
+   ========================================================= */
+function finishOnboarding() {
+  document.getElementById('onboarding').classList.add('hide');
+  try { localStorage.setItem('ks_onboarded', '1'); } catch {}
+}
+// если уже проходил — скрыть сразу
+try {
+  if (localStorage.getItem('ks_onboarded') === '1') {
+    document.getElementById('onboarding').style.display = 'none';
+  }
+} catch {}
 
-document.querySelectorAll('.reveal, .card, .title').forEach(el => {
-  el.classList.add('reveal');
-  observer.observe(el);
+/* =========================================================
+   1. НАВИГАЦИЯ
+   ========================================================= */
+window.showView = function(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const t = document.getElementById('view-' + name);
+  if (t) t.classList.add('active');
+  document.querySelectorAll('.tabbar .tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.tab === name);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'cart') setTimeout(window.renderCartPage, 50);
+  if (name === 'profile') setTimeout(window.refreshAccountUI, 50);
+};
+window.scrollToId = function(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+};
+window.showToast = function(msg) {
+  let t = document.querySelector('.toast');
+  if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+};
+
+/* =========================================================
+   2. ХРАНИЛИЩЕ
+   ========================================================= */
+const LS = (function() {
+  let mem = {}, ok = true;
+  try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); } catch(e) { ok = false; }
+  return {
+    get(k){ return ok ? localStorage.getItem(k) : (mem[k]||null); },
+    set(k,v){ if(ok){ try{localStorage.setItem(k,v);}catch(e){mem[k]=v;} } else mem[k]=v; },
+    del(k){ if(ok){ try{localStorage.removeItem(k);}catch(e){} } delete mem[k]; }
+  };
+})();
+
+/* =========================================================
+   3. КОРЗИНА
+   ========================================================= */
+const CART_KEY = 'ks_cart_v2';
+function readCart(){ try{const p=JSON.parse(LS.get(CART_KEY)||'[]');return Array.isArray(p)?p:[];}catch{return[];} }
+function writeCart(c){ LS.set(CART_KEY, JSON.stringify(c)); window.renderCartCount(); }
+window.getCart = readCart;
+window.addToCart = function(id,name,price){
+  const c=readCart(); const it=c.find(i=>i.id===id);
+  if(it) it.qty++; else c.push({id,name,price:Number(price),qty:1});
+  writeCart(c);
+};
+window.changeQty = function(id,d){
+  const c=readCart(); const i=c.findIndex(x=>x.id===id);
+  if(i<0)return; c[i].qty+=d; if(c[i].qty<=0)c.splice(i,1);
+  writeCart(c); window.renderCartPage();
+};
+window.removeFromCart = function(id){ writeCart(readCart().filter(i=>i.id!==id)); window.renderCartPage(); };
+window.clearCart = function(){ writeCart([]); window.renderCartPage(); window.showToast('Корзина очищена'); };
+window.cartTotal = function(){ return readCart().reduce((s,i)=>s+i.price*i.qty,0); };
+window.renderCartCount = function(){
+  const n=readCart().reduce((s,i)=>s+i.qty,0);
+  document.querySelectorAll('.cart-count').forEach(el=>el.textContent=n);
+};
+window.renderCartPage = function(){
+  const list=document.getElementById('cart-list');
+  const sum=document.getElementById('cart-summary');
+  const total=document.getElementById('total-sum');
+  const clr=document.getElementById('clear-cart-btn');
+  if(!list)return;
+  const cart=readCart();
+  if(!cart.length){
+    list.innerHTML=`<div class="empty-cart">Корзина пуста 🍰<br><br><button class="btn" onclick="showView('home');scrollToId('menu')">В меню</button></div>`;
+    sum.style.display='none'; if(clr)clr.style.display='none'; return;
+  }
+  list.innerHTML=cart.map(i=>`
+    <div class="cart-item">
+      <span class="ci-name">${i.name}</span>
+      <span class="ci-price">${i.price}₽</span>
+      <div class="qty-controls">
+        <button class="qty-btn" data-action="minus" data-id="${i.id}">−</button>
+        <span>${i.qty}</span>
+        <button class="qty-btn" data-action="plus" data-id="${i.id}">+</button>
+      </div>
+      <button class="ci-remove" data-action="remove" data-id="${i.id}">✕</button>
+    </div>`).join('');
+  sum.style.display='flex';
+  total.textContent=window.cartTotal().toLocaleString('ru-RU');
+  if(clr)clr.style.display='inline-flex';
+};
+document.addEventListener('click', e => {
+  const b=e.target.closest('[data-action]'); if(!b)return;
+  const a=b.dataset.action, id=b.dataset.id;
+  if(a==='plus')window.changeQty(id,1);
+  else if(a==='minus')window.changeQty(id,-1);
+  else if(a==='remove')window.removeFromCart(id);
 });
 
-const nav = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-});
+/* =========================================================
+   4. РЕГИСТРАЦИЯ (своя)
+   ========================================================= */
+const USERS_KEY='ks_users', SESSION_KEY='ks_session';
+function hash(str){let h=5381;for(let i=0;i<str.length;i++)h=((h<<5)+h)+str.charCodeAt(i);return (h>>>0).toString(16)+'_'+str.length;}
+function getUsers(){try{return JSON.parse(LS.get(USERS_KEY)||'{}');}catch{return{};}}
+function saveUsers(u){LS.set(USERS_KEY,JSON.stringify(u));}
+function getSession(){return LS.get(SESSION_KEY);}
+function setSession(e){LS.set(SESSION_KEY,e);}
+function clearSession(){LS.del(SESSION_KEY);}
+function currentUser(){const e=getSession();if(!e)return null;const u=getUsers()[e];return u?{...u}:null;}
 
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(a.getAttribute('href'))
-      .scrollIntoView({ behavior:'smooth' });
+window.showAuthTab = function(tab){
+  ['login','register','recover','profile'].forEach(t=>{
+    const el=document.getElementById('auth-'+t);
+    if(el)el.style.display=(t===tab)?'block':'none';
   });
+  ['login-error','reg-error','rec-error'].forEach(id=>{
+    const e=document.getElementById(id); if(e)e.classList.remove('show');
+  });
+};
+function showErr(id,msg){const e=document.getElementById(id);if(!e)return;e.textContent=msg;e.classList.add('show');}
+
+window.doRegister = function(){
+  const name=document.getElementById('reg-name').value.trim();
+  const email=document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass=document.getElementById('reg-pass').value;
+  const pass2=document.getElementById('reg-pass2').value;
+  const q=document.getElementById('reg-question').value;
+  const answer=document.getElementById('reg-answer').value.trim().toLowerCase();
+  if(!name)return showErr('reg-error','Введите имя');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return showErr('reg-error','Некорректный email');
+  if(pass.length<6)return showErr('reg-error','Пароль короче 6 символов');
+  if(pass!==pass2)return showErr('reg-error','Пароли не совпадают');
+  if(!answer)return showErr('reg-error','Введите ответ на вопрос');
+  const users=getUsers();
+  if(users[email])return showErr('reg-error','Такой email уже зарегистрирован');
+  users[email]={name,email,passHash:hash(pass),question:q,answerHash:hash(answer),phone:'',address:'',created:Date.now()};
+  saveUsers(users); setSession(email);
+  window.showToast('Аккаунт создан ✓');
+  window.refreshAccountUI();
+};
+
+window.doLogin = function(){
+  const email=document.getElementById('login-email').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pass').value;
+  if(!email||!pass)return showErr('login-error','Заполните все поля');
+  const u=getUsers()[email];
+  if(!u)return showErr('login-error','Пользователь не найден');
+  if(u.passHash!==hash(pass))return showErr('login-error','Неверный пароль');
+  setSession(email);
+  window.showToast('Добро пожаловать, '+u.name+'!');
+  window.refreshAccountUI();
+};
+
+window.doLogout = function(){ clearSession(); window.showToast('Вы вышли'); window.refreshAccountUI(); };
+
+let recEmail=null;
+window.doRecoverStep1 = function(){
+  const email=document.getElementById('rec-email').value.trim().toLowerCase();
+  const u=getUsers()[email];
+  if(!u)return showErr('rec-error','Пользователь не найден');
+  recEmail=email;
+  const qText={pet:'Кличка первого питомца?',city:'Город рождения?',school:'Номер школы?',dish:'Любимое блюдо?'}[u.question]||'Секретный вопрос';
+  document.getElementById('rec-question-text').textContent=qText;
+  document.getElementById('rec-step2').style.display='block';
+};
+window.doRecoverStep2 = function(){
+  const answer=document.getElementById('rec-answer').value.trim().toLowerCase();
+  const newPass=document.getElementById('rec-newpass').value;
+  if(newPass.length<6)return showErr('rec-error','Пароль короче 6 символов');
+  const users=getUsers(); const u=users[recEmail];
+  if(!u)return showErr('rec-error','Ошибка');
+  if(u.answerHash!==hash(answer))return showErr('rec-error','Неверный ответ');
+  u.passHash=hash(newPass); saveUsers(users);
+  window.showToast('Пароль изменён ✓');
+  recEmail=null;
+  document.getElementById('rec-step2').style.display='none';
+  window.showAuthTab('login');
+};
+
+window.refreshAccountUI = function(){
+  const u=currentUser();
+  const navLink=document.getElementById('nav-profile-link');
+  if(u){
+    if(navLink)navLink.textContent=u.name.split(' ')[0]||'Профиль';
+    showAuthTab('profile');
+    document.getElementById('prof-avatar').textContent=(u.name[0]||'?').toUpperCase();
+    document.getElementById('prof-name').textContent=u.name;
+    document.getElementById('prof-email').textContent=u.email;
+    document.getElementById('prof-edit-name').value=u.name;
+    document.getElementById('prof-edit-phone').value=u.phone||'';
+    document.getElementById('prof-edit-address').value=u.address||'';
+    document.getElementById('prof-edit-pass').value='';
+  } else {
+    if(navLink)navLink.textContent='Войти';
+    showAuthTab('login');
+  }
+};
+
+window.saveProfileSettings = function(e){
+  e.preventDefault();
+  const u=currentUser(); if(!u)return;
+  const users=getUsers(); const rec=users[u.email];
+  rec.name=document.getElementById('prof-edit-name').value.trim()||rec.name;
+  rec.phone=document.getElementById('prof-edit-phone').value.trim();
+  rec.address=document.getElementById('prof-edit-address').value.trim();
+  const np=document.getElementById('prof-edit-pass').value;
+  if(np){ if(np.length<6){window.showToast('Пароль короче 6 символов');return;} rec.passHash=hash(np); }
+  saveUsers(users);
+  window.showToast('Настройки сохранены ✓');
+  window.refreshAccountUI();
+};
+
+/* =========================================================
+   5. ОФОРМЛЕНИЕ ЗАКАЗА + ИНИЦИАЛИЗАЦИЯ
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.add-to-cart').forEach(btn=>{
+    btn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      window.addToCart(btn.dataset.id, btn.dataset.name, btn.dataset.price);
+      window.showToast('Добавлено ✓');
+      const old=btn.textContent; btn.textContent='✓'; btn.disabled=true;
+      setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1000);
+    });
+  });
+
+  const co=document.getElementById('checkout-btn');
+  if(co)co.addEventListener('click', function(){
+    const cart=readCart(); if(!cart.length)return;
+    const u=currentUser();
+    const lines=cart.map(i=>`• ${i.name} × ${i.qty} — ${i.price*i.qty} ₽`).join('\n');
+    let text=`Здравствуйте! Хочу заказать:\n${lines}\n\nИтого: ${window.cartTotal()} ₽`;
+    if(u)text+=`\nКлиент: ${u.name} (${u.email})`;
+    if(u&&u.phone)text+=`\nТелефон: ${u.phone}`;
+    if(u&&u.address)text+=`\nАдрес: ${u.address}`;
+    window.open('https://wa.me/79647994650?text='+encodeURIComponent(text),'_blank');
+  });
+
+  window.addEventListener('scroll', function(){
+    const nav=document.querySelector('nav');
+    if(nav)nav.classList.toggle('scrolled', window.scrollY>50);
+  });
+
+  window.renderCartCount();
+  window.refreshAccountUI();
 });
 </script>
 </body>
